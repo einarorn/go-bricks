@@ -5,9 +5,9 @@ type Points struct {
 }
 
 func (s *Points) GetPoints() int {
-	return -1
+	return s.value
 }
 
 func (s *Points) AddPoints(value int) {
-	
+	s.value += value
 }
