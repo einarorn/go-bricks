@@ -1,7 +1,7 @@
 package points
 
 type Points struct {
-	 value int	
+	value int
 }
 
 func (s *Points) GetPoints() int {
