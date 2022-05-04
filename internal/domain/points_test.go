@@ -1,16 +1,16 @@
-package points_test
+package domain_test
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"go-bricks/internal/domain/points"
+	"go-bricks/internal/domain"
 )
 
 func TestPoints_GetPoints(t *testing.T) {
 	t.Run("Inital points value should be zero", func(t *testing.T) {
-		p := points.Points{}
+		p := domain.Points{}
 		expected := 0
 
 		actual := p.GetPoints()
@@ -21,7 +21,7 @@ func TestPoints_GetPoints(t *testing.T) {
 
 func TestPoints_AddPoints(t *testing.T) {
 	t.Run("Add 50 points single time", func(t *testing.T) {
-		p := points.Points{}
+		p := domain.Points{}
 		expected := 50
 		p.AddPoints(50)
 
@@ -31,7 +31,7 @@ func TestPoints_AddPoints(t *testing.T) {
 	})
 
 	t.Run("Add 50 points two times", func(t *testing.T) {
-		p := points.Points{}
+		p := domain.Points{}
 		expected := 100
 		p.AddPoints(50)
 		p.AddPoints(50)

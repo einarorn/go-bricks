@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 const header = `
 ____        _      _        
 |  _ \     (_)    | |       
@@ -14,5 +10,6 @@ ____        _      _
  `
 
 func main() {
-	fmt.Println(header)
+	app := newApp()
+	app.start()
 }

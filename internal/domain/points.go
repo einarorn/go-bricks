@@ -1,4 +1,4 @@
-package points
+package domain
 
 type Points struct {
 	value int
