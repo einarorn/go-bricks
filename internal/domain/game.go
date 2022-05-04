@@ -1,19 +1,26 @@
 package domain
 
-import "fmt"
+import (
+	"go-bricks/internal/models"
+	"go-bricks/internal/ports"
+)
 
 type Game struct {
-	height int
-	width  int
+	Height int
+	Width  int
 }
 
 func New(height, width int) Game {
 	return Game{
-		height: height,
-		width:  width,
+		Height: height,
+		Width:  width,
 	}
 }
 
-func (g Game) Start() {
-	fmt.Printf("Game started... Height: %d, Width: %d", g.height, g.width)
+func (g Game) Start(gui ports.UserOutput) {
+	status := models.GameStatus{
+		Height: g.Height,
+		Width:  g.Width,
+	}
+	gui.Draw(status)
 }

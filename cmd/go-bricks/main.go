@@ -1,5 +1,7 @@
 package main
 
+import "log"
+
 const header = `
 ____        _      _        
 |  _ \     (_)    | |       
@@ -10,6 +12,9 @@ ____        _      _
  `
 
 func main() {
-	app := newApp()
+	app,err := newApp()
+	if err != nil {
+		log.Fatalf("Error starting app: %v", err)
+	}
 	app.start()
 }
