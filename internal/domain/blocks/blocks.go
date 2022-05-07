@@ -1,0 +1,48 @@
+package blocks
+
+import (
+	"go-bricks/internal/models"
+)
+
+type blocks struct {
+	blocks  []models.Block
+	rows    int
+	columns int
+	width   int
+}
+
+func NewBlocks(rows, columns, width int) *blocks {
+	b := blocks{
+		blocks: make([]models.Block, rows*columns),
+		rows:    rows,
+		columns: columns,
+		width:   width,
+	}
+	b.init()
+	return &b
+}
+
+func (b blocks) init() {
+
+	var x, y int
+	for i := 0; i < b.rows * b.columns; i++ {
+		b.blocks[i].PositionA = models.Coordinate{
+			X: x,
+			Y: y,
+		}
+		b.blocks[i].PositionB = models.Coordinate{
+			X: x+b.width,
+			Y: y+1,
+		}
+
+		x = x + b.width + 2
+		if b.rows * (b.width + 2) <= x {
+			x = 0
+			y = y + 2
+		}
+	}
+}
+
+func (b blocks) GetBlocks() []models.Block {
+	return b.blocks
+}

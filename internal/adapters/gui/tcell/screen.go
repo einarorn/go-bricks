@@ -5,6 +5,12 @@ import (
 	"go-bricks/internal/models"
 )
 
+const (
+	borderWidth = 2
+	offsetX = 2
+	offsetY = 2
+)
+
 type GraphicalUserInterface struct {
 	screen tcell.Screen
 }
@@ -26,33 +32,51 @@ func New() (*GraphicalUserInterface, error) {
 	return &GraphicalUserInterface{screen: s}, nil
 }
 
-
 func (gui GraphicalUserInterface) Draw(status models.GameStatus) {
-	drawBorder(gui.screen, status.Height, status.Width)
-	drawText(gui.screen, 2, status.Height+2, status.Title)
+	gui.drawBorder(status.Height, status.Width)
+	gui.drawText(offsetX, status.Height+offsetY+2, status.Title)
+	gui.drawBlocks(status.Blocks)
 
 	gui.screen.Show()
 }
 
-func drawText(s tcell.Screen,x int, y int, text string) {
-	style := tcell.StyleDefault.Foreground(tcell.ColorWhite).Background(tcell.ColorBlack)
-	for index, char := range text {
-		s.SetContent(x+index, y, rune(char), nil, style)
+func (gui GraphicalUserInterface) drawBlocks(blocks []models.Block) {
+	style := tcell.StyleDefault.Foreground(tcell.ColorGreen).Background(tcell.ColorBlack).Bold(true)
+
+	for _, block := range blocks {
+		gui.drawSingleBlock(block.PositionA.X+offsetX+borderWidth, block.PositionA.Y+offsetY+borderWidth, block.PositionB.X+offsetX+borderWidth, style)
+	}
+
+}
+
+func (gui GraphicalUserInterface) drawSingleBlock(x, y, width int, style tcell.Style) {
+	for i := x; i <= width; i++ {
+		gui.screen.SetContent(i, y, '█', nil, style)
+		gui.screen.SetContent(i, y+1, '▀', nil, style)
 	}
 }
 
-func drawBorder(s tcell.Screen, height, width int) {
-	borderStyle := tcell.StyleDefault.Foreground(tcell.ColorWhite).Background(tcell.ColorGray)
+func (gui GraphicalUserInterface) drawText(x int, y int, text string) {
+	style := tcell.StyleDefault.Foreground(tcell.ColorWhite).Background(tcell.ColorBlack)
+	for index, char := range text {
+		gui.screen.SetContent(x+index, y, rune(char), nil, style)
+	}
+}
 
-	for w := 1 + 1; w < height; w++ {
-		s.SetContent(1, w, ' ', nil, borderStyle)
-		s.SetContent(width, w, ' ', nil, borderStyle)
+func (gui GraphicalUserInterface) drawBorder(height, width int) {
+	borderStyle := tcell.StyleDefault.Foreground(tcell.ColorReset).Background(tcell.ColorGray)
+
+	for x := offsetX; x <= width+offsetX; x++ {
+		gui.screen.SetContent(x, offsetY, ' ', nil, borderStyle)
+		gui.screen.SetContent(x, height+offsetY, ' ', nil, borderStyle)
 	}
 
-	for h := 1; h <= width; h++ {
-		s.SetContent(h, 1, ' ', nil, borderStyle)
-		s.SetContent(h, height, ' ', nil, borderStyle)
+	for y := offsetY; y < height+offsetY; y++ {
+		gui.screen.SetContent(offsetX, y, ' ', nil, borderStyle)
+		gui.screen.SetContent(width+offsetX, y, ' ', nil, borderStyle)
 	}
+
+
 }
 
 

@@ -19,5 +19,5 @@ func newApp() (App, error) {
 }
 
 func (a App) start() {
-	game.New(24, 100).Start(a.UserInterface)
+	game.NewGame(28, 82).Start(a.UserInterface)
 }
