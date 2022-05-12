@@ -21,7 +21,7 @@ func NewGame(height, width int) Game {
 }
 
 func (g Game) Start(gui ports.UserOutput) {
-	b := blocks.NewBlocks(10, 6, 6)
+	b := blocks.NewBlocks(8, 6, 8)
 
 	status := models.GameStatus{
 		Title:      title,

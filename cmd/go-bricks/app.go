@@ -11,7 +11,7 @@ type App struct {
 }
 
 func newApp() (App, error) {
-	tcellUI, err := tcell.New()
+	tcellUI, err := tcell.NewGUI()
 	if err != nil {
 		return App{}, err
 	}

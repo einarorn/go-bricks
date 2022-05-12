@@ -10,13 +10,20 @@ const (
 	borderWidth = 2
 	offsetX     = 2
 	offsetY     = 2
+
+	blockColor1 = tcell.ColorRed
+	blockColor2 = tcell.ColorYellow
+	blockColor3 = tcell.ColorGreen
+	blockColor4 = tcell.ColorBlue
+	blockColor5 = tcell.ColorWhite
+	blockColor6 = tcell.ColorPurple
 )
 
 type GraphicalUserInterface struct {
 	screen tcell.Screen
 }
 
-func New() (*GraphicalUserInterface, error) {
+func NewGUI() (*GraphicalUserInterface, error) {
 	s, err := tcell.NewScreen()
 	if err != nil {
 		return nil, err
@@ -42,14 +49,29 @@ func (gui GraphicalUserInterface) Draw(status models.GameStatus) {
 }
 
 func (gui GraphicalUserInterface) drawBlocks(blocks []models.Block) {
-	style := tcell.StyleDefault.Foreground(tcell.ColorGreen).Background(tcell.ColorBlack).Bold(true)
+	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorBlack)
 
 	for _, block := range blocks {
-		gui.drawSingleBlock(block.PositionA.X+offsetX+borderWidth, block.PositionA.Y+offsetY+borderWidth, block.PositionB.X+offsetX+borderWidth, style)
+		gui.drawSingleBlock(block.PositionA.X+offsetX+borderWidth, block.PositionA.Y+offsetY+borderWidth, block.PositionB.X+offsetX+borderWidth, block.Color, style)
 	}
 }
 
-func (gui GraphicalUserInterface) drawSingleBlock(x, y, width int, style tcell.Style) {
+func (gui GraphicalUserInterface) drawSingleBlock(x, y, width, color int, style tcell.Style) {
+	switch color {
+	case 1:
+		style = style.Foreground(blockColor1)
+	case 2:
+		style = style.Foreground(blockColor2)
+	case 3:
+		style = style.Foreground(blockColor3)
+	case 4:
+		style = style.Foreground(blockColor4)
+	case 5:
+		style = style.Foreground(blockColor5)
+	case 6:
+		style = style.Foreground(blockColor6)
+	}
+
 	for i := x; i <= width; i++ {
 		gui.screen.SetContent(i, y, '█', nil, style)
 		gui.screen.SetContent(i, y+1, '▀', nil, style)
