@@ -1,11 +1,10 @@
 package points_test
 
 import (
+	"go-bricks/internal/domain/points"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"go-bricks/internal/domain/points"
 )
 
 func TestPoints_GetPoints(t *testing.T) {

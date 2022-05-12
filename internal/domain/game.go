@@ -24,11 +24,11 @@ func (g Game) Start(gui ports.UserOutput) {
 	b := blocks.NewBlocks(10, 6, 6)
 
 	status := models.GameStatus{
-		Title: title,
-		Height: g.Height,
-		Width:  g.Width,
+		Title:      title,
+		Height:     g.Height,
+		Width:      g.Width,
 		BlockWidth: 8,
-		Blocks: b.GetBlocks(),
+		Blocks:     b.GetBlocks(),
 	}
 	gui.Draw(status)
 }

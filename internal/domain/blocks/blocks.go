@@ -13,7 +13,7 @@ type blocks struct {
 
 func NewBlocks(rows, columns, width int) *blocks {
 	b := blocks{
-		blocks: make([]models.Block, rows*columns),
+		blocks:  make([]models.Block, rows*columns),
 		rows:    rows,
 		columns: columns,
 		width:   width,
@@ -23,22 +23,24 @@ func NewBlocks(rows, columns, width int) *blocks {
 }
 
 func (b blocks) init() {
-
 	var x, y int
-	for i := 0; i < b.rows * b.columns; i++ {
+	color := 1
+	for i := 0; i < b.rows*b.columns; i++ {
 		b.blocks[i].PositionA = models.Coordinate{
 			X: x,
 			Y: y,
 		}
 		b.blocks[i].PositionB = models.Coordinate{
-			X: x+b.width,
-			Y: y+1,
+			X: x + b.width,
+			Y: y + 1,
 		}
+		b.blocks[i].Color = color
 
 		x = x + b.width + 2
-		if b.rows * (b.width + 2) <= x {
+		if b.rows*(b.width+2) <= x {
 			x = 0
 			y = y + 2
+			color++
 		}
 	}
 }

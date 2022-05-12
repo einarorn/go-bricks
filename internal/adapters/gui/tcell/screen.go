@@ -1,14 +1,15 @@
 package tcell
 
 import (
-	"github.com/gdamore/tcell/v2"
 	"go-bricks/internal/models"
+
+	"github.com/gdamore/tcell/v2"
 )
 
 const (
 	borderWidth = 2
-	offsetX = 2
-	offsetY = 2
+	offsetX     = 2
+	offsetY     = 2
 )
 
 type GraphicalUserInterface struct {
@@ -46,7 +47,6 @@ func (gui GraphicalUserInterface) drawBlocks(blocks []models.Block) {
 	for _, block := range blocks {
 		gui.drawSingleBlock(block.PositionA.X+offsetX+borderWidth, block.PositionA.Y+offsetY+borderWidth, block.PositionB.X+offsetX+borderWidth, style)
 	}
-
 }
 
 func (gui GraphicalUserInterface) drawSingleBlock(x, y, width int, style tcell.Style) {
@@ -75,8 +75,4 @@ func (gui GraphicalUserInterface) drawBorder(height, width int) {
 		gui.screen.SetContent(offsetX, y, ' ', nil, borderStyle)
 		gui.screen.SetContent(width+offsetX, y, ' ', nil, borderStyle)
 	}
-
-
 }
-
-

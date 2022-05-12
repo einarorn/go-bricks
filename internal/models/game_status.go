@@ -13,6 +13,7 @@ type (
 		PositionA   Coordinate
 		PositionB   Coordinate
 		IsDestroyed bool
+		Color       int
 	}
 
 	Coordinate struct {

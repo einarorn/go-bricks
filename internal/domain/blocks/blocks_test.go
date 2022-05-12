@@ -2,12 +2,11 @@ package blocks_test
 
 import (
 	"fmt"
+	"go-bricks/internal/domain/blocks"
 	"go-bricks/internal/models"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"go-bricks/internal/domain/blocks"
 )
 
 func TestBlocks_GetBlocks(t *testing.T) {
@@ -24,11 +23,11 @@ func TestBlocks_GetBlocks(t *testing.T) {
 			Y: 1,
 		}
 		expectedIndex1PositionA := models.Coordinate{
-			X: width+2,
+			X: width + 2,
 			Y: 0,
 		}
 		expectedIndex1PositionB := models.Coordinate{
-			X: 2*width+2,
+			X: 2*width + 2,
 			Y: 1,
 		}
 		expectedIndex2PositionA := models.Coordinate{
@@ -40,11 +39,11 @@ func TestBlocks_GetBlocks(t *testing.T) {
 			Y: 3,
 		}
 		expectedIndex3PositionA := models.Coordinate{
-			X: width+2,
+			X: width + 2,
 			Y: 2,
 		}
 		expectedIndex3PositionB := models.Coordinate{
-			X: 2*width+2,
+			X: 2*width + 2,
 			Y: 3,
 		}
 
@@ -60,7 +59,7 @@ func TestBlocks_GetBlocks(t *testing.T) {
 		assert.Equal(t, expectedIndex3PositionA, actual[3].PositionA)
 		assert.Equal(t, expectedIndex3PositionB, actual[3].PositionB)
 	})
-	
+
 	t.Run("Initializing a blocks matrix should have have length of rows x columns", func(t *testing.T) {
 		rows := 6
 		columns := 6
@@ -75,6 +74,14 @@ func TestBlocks_GetBlocks(t *testing.T) {
 
 		for _, block := range b.GetBlocks() {
 			assert.False(t, block.IsDestroyed)
+		}
+	})
+
+	t.Run("Initialized blocks should not have color value as zero", func(t *testing.T) {
+		b := blocks.NewBlocks(6, 6, 4)
+
+		for _, block := range b.GetBlocks() {
+			assert.NotEqual(t, 0, block.Color)
 		}
 	})
 }
