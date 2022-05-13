@@ -22,7 +22,7 @@ func NewBlocks(rows, columns, width int) *blocks {
 	return &b
 }
 
-func (b blocks) init() {
+func (b *blocks) init() {
 	var x, y int
 	color := 1
 	for i := 0; i < b.rows*b.columns; i++ {
@@ -45,6 +45,6 @@ func (b blocks) init() {
 	}
 }
 
-func (b blocks) GetBlocks() []models.Block {
+func (b *blocks) GetBlocks() []models.Block {
 	return b.blocks
 }

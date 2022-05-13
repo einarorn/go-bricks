@@ -1,7 +1,6 @@
 package blocks_test
 
 import (
-	"fmt"
 	"go-bricks/internal/domain/blocks"
 	"go-bricks/internal/models"
 	"testing"
@@ -48,7 +47,6 @@ func TestBlocks_GetBlocks(t *testing.T) {
 		}
 
 		actual := b.GetBlocks()
-		fmt.Println(actual)
 
 		assert.Equal(t, expectedIndex0PositionA, actual[0].PositionA)
 		assert.Equal(t, expectedIndex0PositionB, actual[0].PositionB)

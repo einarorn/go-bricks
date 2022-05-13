@@ -2,11 +2,11 @@ package models
 
 type (
 	GameStatus struct {
-		Title      string
-		Height     int
-		Width      int
-		BlockWidth int
-		Blocks     []Block
+		Title  string
+		Height int
+		Width  int
+		Blocks []Block
+		Paddle Paddle
 	}
 
 	Block struct {
@@ -14,6 +14,11 @@ type (
 		PositionB   Coordinate
 		IsDestroyed bool
 		Color       int
+	}
+
+	Paddle struct {
+		PositionA Coordinate
+		PositionB Coordinate
 	}
 
 	Coordinate struct {
