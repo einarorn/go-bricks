@@ -46,10 +46,18 @@ func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
 	gui.drawText(offsetX, status.Height+offsetY+borderWidth+2, status.Title)
 	gui.drawBlocks(status.Blocks)
 	gui.drawPaddle(status.Paddle)
+	gui.drawBall(status.Ball)
 
 	gui.drawYAxis(status.Height, status.Width)
 
 	gui.screen.Show()
+}
+
+func (gui GraphicalUserInterface) drawBall(ball models.Ball)  {
+	style := tcell.StyleDefault.Foreground(tcell.ColorOrange).Background(tcell.ColorBlack)
+	gui.screen.SetContent(ball.Position.X+offsetX+borderWidth, ball.Position.Y+offsetY+borderWidth, '⚪', nil, style)
+
+	//gui.drawText(offsetX, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", ball.Position.X, ball.Position.Y))
 }
 
 func (gui GraphicalUserInterface) drawPaddle(paddle models.Paddle) {
