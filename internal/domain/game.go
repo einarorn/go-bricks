@@ -23,14 +23,14 @@ func NewGame(height, width int) Game {
 
 func (g Game) Start(gui ports.UserOutput) {
 	b := blocks.NewBlocks(8, 6, 8)
-	p := paddle.NewPaddle(g.Height, g.Width, 3)
+	p := paddle.NewPaddle(g.Height, g.Width, 11)
 
 	status := models.GameStatus{
 		Title:  title,
 		Height: g.Height,
 		Width:  g.Width,
 		Blocks: b.GetBlocks(),
-		Paddle: p.GetPosition(),
+		Paddle: p.GetPaddle(),
 	}
 	gui.Draw(status)
 }

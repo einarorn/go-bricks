@@ -29,7 +29,7 @@ func (p *paddle) init() {
 	p.paddle.PositionB.Y = p.height - 1
 }
 
-func (p *paddle) GetPosition() models.Paddle {
+func (p *paddle) GetPaddle() models.Paddle {
 	return p.paddle
 }
 

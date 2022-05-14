@@ -1,6 +1,7 @@
 package tcell
 
 import (
+	"fmt"
 	"go-bricks/internal/models"
 
 	"github.com/gdamore/tcell/v2"
@@ -40,15 +41,26 @@ func NewGUI() (*GraphicalUserInterface, error) {
 	return &GraphicalUserInterface{screen: s}, nil
 }
 
-func (gui GraphicalUserInterface) Draw(status models.GameStatus) {
+func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
 	gui.drawBorder(status.Height, status.Width)
-	gui.drawText(offsetX, status.Height+offsetY+2, status.Title)
+	gui.drawText(offsetX, status.Height+offsetY+borderWidth+2, status.Title)
 	gui.drawBlocks(status.Blocks)
+	gui.drawPaddle(status.Paddle)
+
+	gui.drawYAxis(status.Height, status.Width)
 
 	gui.screen.Show()
 }
 
-func (gui GraphicalUserInterface) drawBlocks(blocks []models.Block) {
+func (gui GraphicalUserInterface) drawPaddle(paddle models.Paddle) {
+	style := tcell.StyleDefault.Foreground(tcell.ColorWhite).Background(tcell.ColorBlack)
+
+	for i := paddle.PositionA.X + offsetX + borderWidth; i <= paddle.PositionB.X+offsetX+borderWidth; i++ {
+		gui.screen.SetContent(i, paddle.PositionA.Y+offsetY+borderWidth, '█', nil, style)
+	}
+}
+
+func (gui *GraphicalUserInterface) drawBlocks(blocks []models.Block) {
 	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorBlack)
 
 	for _, block := range blocks {
@@ -56,7 +68,7 @@ func (gui GraphicalUserInterface) drawBlocks(blocks []models.Block) {
 	}
 }
 
-func (gui GraphicalUserInterface) drawSingleBlock(x, y, width, color int, style tcell.Style) {
+func (gui *GraphicalUserInterface) drawSingleBlock(x, y, width, color int, style tcell.Style) {
 	switch color {
 	case 1:
 		style = style.Foreground(blockColor1)
@@ -78,23 +90,30 @@ func (gui GraphicalUserInterface) drawSingleBlock(x, y, width, color int, style 
 	}
 }
 
-func (gui GraphicalUserInterface) drawText(x int, y int, text string) {
+func (gui *GraphicalUserInterface) drawText(x int, y int, text string) {
 	style := tcell.StyleDefault.Foreground(tcell.ColorWhite).Background(tcell.ColorBlack)
 	for index, char := range text {
 		gui.screen.SetContent(x+index, y, rune(char), nil, style)
 	}
 }
 
-func (gui GraphicalUserInterface) drawBorder(height, width int) {
+func (gui *GraphicalUserInterface) drawBorder(height, width int) {
 	borderStyle := tcell.StyleDefault.Foreground(tcell.ColorReset).Background(tcell.ColorGray)
 
 	for x := offsetX; x <= width+offsetX; x++ {
 		gui.screen.SetContent(x, offsetY, ' ', nil, borderStyle)
-		gui.screen.SetContent(x, height+offsetY, ' ', nil, borderStyle)
+		gui.screen.SetContent(x, height+offsetY+borderWidth, ' ', nil, borderStyle)
 	}
 
-	for y := offsetY; y < height+offsetY; y++ {
+	for y := offsetY; y < height+offsetY+borderWidth; y++ {
 		gui.screen.SetContent(offsetX, y, ' ', nil, borderStyle)
 		gui.screen.SetContent(width+offsetX, y, ' ', nil, borderStyle)
+	}
+}
+
+func (gui GraphicalUserInterface) drawYAxis(height, width int) {
+	offset := offsetY + borderWidth
+	for i := 0; i < height+offset; i++ {
+		gui.drawText(width+offsetX+borderWidth, i, fmt.Sprintf("%v", i-offset))
 	}
 }

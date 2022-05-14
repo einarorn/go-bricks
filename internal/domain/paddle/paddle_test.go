@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPaddle_GetPosition(t *testing.T) {
+func TestPaddle_GetPaddle(t *testing.T) {
 	t.Run("Initial position should be in the center and at bottom", func(t *testing.T) {
 		p := paddle.NewPaddle(16, 20, 3)
 		expectedPositionA := models.Coordinate{
@@ -20,7 +20,7 @@ func TestPaddle_GetPosition(t *testing.T) {
 			Y: 15,
 		}
 
-		actualPosition := p.GetPosition()
+		actualPosition := p.GetPaddle()
 
 		assert.Equal(t, expectedPositionA, actualPosition.PositionA)
 		assert.Equal(t, expectedPositionB, actualPosition.PositionB)
@@ -40,7 +40,7 @@ func TestPaddle_MoveLeft(t *testing.T) {
 		}
 
 		p.MoveLeft()
-		actualPosition := p.GetPosition()
+		actualPosition := p.GetPaddle()
 
 		assert.Equal(t, expectedPositionA, actualPosition.PositionA)
 		assert.Equal(t, expectedPositionB, actualPosition.PositionB)
@@ -60,7 +60,7 @@ func TestPaddle_MoveLeft(t *testing.T) {
 		for i := 0; i < 20; i++ {
 			p.MoveLeft()
 		}
-		actualPosition := p.GetPosition()
+		actualPosition := p.GetPaddle()
 
 		assert.Equal(t, expectedPositionA, actualPosition.PositionA)
 		assert.Equal(t, expectedPositionB, actualPosition.PositionB)
@@ -80,7 +80,7 @@ func TestPaddle_MoveRight(t *testing.T) {
 		}
 
 		p.MoveRight()
-		actualPosition := p.GetPosition()
+		actualPosition := p.GetPaddle()
 
 		assert.Equal(t, expectedPositionA, actualPosition.PositionA)
 		assert.Equal(t, expectedPositionB, actualPosition.PositionB)
@@ -100,7 +100,7 @@ func TestPaddle_MoveRight(t *testing.T) {
 		for i := 0; i < 20; i++ {
 			p.MoveRight()
 		}
-		actualPosition := p.GetPosition()
+		actualPosition := p.GetPaddle()
 
 		assert.Equal(t, expectedPositionA, actualPosition.PositionA)
 		assert.Equal(t, expectedPositionB, actualPosition.PositionB)

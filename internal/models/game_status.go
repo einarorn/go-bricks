@@ -5,8 +5,13 @@ type (
 		Title  string
 		Height int
 		Width  int
+		Ball   Ball
 		Blocks []Block
 		Paddle Paddle
+	}
+
+	Ball struct {
+		Position Coordinate
 	}
 
 	Block struct {
