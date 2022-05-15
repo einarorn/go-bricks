@@ -35,13 +35,15 @@ func NewGUI() (*GraphicalUserInterface, error) {
 
 	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(tcell.ColorReset)
 	s.SetStyle(defStyle)
-
 	s.Clear()
 
 	return &GraphicalUserInterface{screen: s}, nil
 }
 
 func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
+
+
+	gui.drawBackground(status.Height, status.Width)
 	gui.drawBorder(status.Height, status.Width)
 	gui.drawText(offsetX, status.Height+offsetY+borderWidth+2, status.Title)
 	gui.drawBlocks(status.Blocks)
@@ -50,11 +52,11 @@ func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
 
 	gui.drawYAxis(status.Height, status.Width)
 
-	gui.screen.Show()
+	gui.screen.Sync()
 }
 
 func (gui GraphicalUserInterface) drawBall(ball models.Ball)  {
-	style := tcell.StyleDefault.Foreground(tcell.ColorOrange).Background(tcell.ColorBlack)
+	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorDefault)
 	gui.screen.SetContent(ball.Position.X+offsetX+borderWidth, ball.Position.Y+offsetY+borderWidth, '⚪', nil, style)
 
 	//gui.drawText(offsetX, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", ball.Position.X, ball.Position.Y))
@@ -102,6 +104,16 @@ func (gui *GraphicalUserInterface) drawText(x int, y int, text string) {
 	style := tcell.StyleDefault.Foreground(tcell.ColorWhite).Background(tcell.ColorBlack)
 	for index, char := range text {
 		gui.screen.SetContent(x+index, y, rune(char), nil, style)
+	}
+}
+
+func (gui *GraphicalUserInterface) drawBackground(height, width int) {
+	borderStyle := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
+
+	for y := offsetY+1; y <=height+offsetY+1; y++ {
+		for x := offsetX+1; x <= width+1; x++ {
+			gui.screen.SetContent(x, y, '█', nil, borderStyle)
+		}
 	}
 }
 

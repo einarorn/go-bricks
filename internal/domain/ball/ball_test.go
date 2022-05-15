@@ -19,4 +19,17 @@ func TestBall_GetBall(t *testing.T) {
 
 		assert.Equal(t, expected, actual.Position)
 	})
+
+	t.Run("Initial movement should be one step up", func(t *testing.T) {
+		b := ball.NewBall(8, 3)
+		expected := models.Coordinate{
+			X: 1,
+			Y: 5,
+		}
+
+		b.Move()
+		actual := b.GetBall()
+
+		assert.Equal(t, expected, actual.Position)
+	})
 }
