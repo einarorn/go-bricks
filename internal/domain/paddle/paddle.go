@@ -20,12 +20,11 @@ func NewPaddle(height, width, size int) *paddle {
 }
 
 func (p *paddle) init() {
-	basePosX := p.width / 2
-	sizeOffset := (p.size - 1) / 2
+	startPos := (p.width - p.size) / 2
 
-	p.paddle.PositionA.X = basePosX - sizeOffset
+	p.paddle.PositionA.X = startPos
 	p.paddle.PositionA.Y = p.height - 1
-	p.paddle.PositionB.X = basePosX + sizeOffset
+	p.paddle.PositionB.X = startPos + p.size - 1
 	p.paddle.PositionB.Y = p.height - 1
 }
 

@@ -10,9 +10,9 @@ import (
 
 func TestPaddle_GetPaddle(t *testing.T) {
 	t.Run("Initial position should be in the center and at bottom", func(t *testing.T) {
-		p := paddle.NewPaddle(16, 20, 3)
+		p := paddle.NewPaddle(16, 14, 10)
 		expectedPositionA := models.Coordinate{
-			X: 9,
+			X: 2,
 			Y: 15,
 		}
 		expectedPositionB := models.Coordinate{
@@ -29,13 +29,13 @@ func TestPaddle_GetPaddle(t *testing.T) {
 
 func TestPaddle_MoveLeft(t *testing.T) {
 	t.Run("Move paddle to left should decrease X position by 1", func(t *testing.T) {
-		p := paddle.NewPaddle(16, 20, 3)
+		p := paddle.NewPaddle(16, 14, 8)
 		expectedPositionA := models.Coordinate{
-			X: 8,
+			X: 2,
 			Y: 15,
 		}
 		expectedPositionB := models.Coordinate{
-			X: 10,
+			X: 9,
 			Y: 15,
 		}
 
@@ -47,13 +47,13 @@ func TestPaddle_MoveLeft(t *testing.T) {
 	})
 
 	t.Run("Move paddle to far to left should never go out of bounds", func(t *testing.T) {
-		p := paddle.NewPaddle(16, 20, 3)
+		p := paddle.NewPaddle(16, 20, 4)
 		expectedPositionA := models.Coordinate{
 			X: 0,
 			Y: 15,
 		}
 		expectedPositionB := models.Coordinate{
-			X: 2,
+			X: 3,
 			Y: 15,
 		}
 
@@ -69,13 +69,13 @@ func TestPaddle_MoveLeft(t *testing.T) {
 
 func TestPaddle_MoveRight(t *testing.T) {
 	t.Run("Move paddle to right should increase X position by 1", func(t *testing.T) {
-		p := paddle.NewPaddle(16, 20, 3)
+		p := paddle.NewPaddle(16, 20, 8)
 		expectedPositionA := models.Coordinate{
-			X: 10,
+			X: 7,
 			Y: 15,
 		}
 		expectedPositionB := models.Coordinate{
-			X: 12,
+			X: 14,
 			Y: 15,
 		}
 
@@ -87,9 +87,9 @@ func TestPaddle_MoveRight(t *testing.T) {
 	})
 
 	t.Run("Move paddle to far to right should never go out of bounds", func(t *testing.T) {
-		p := paddle.NewPaddle(16, 20, 3)
+		p := paddle.NewPaddle(16, 20, 4)
 		expectedPositionA := models.Coordinate{
-			X: 17,
+			X: 16,
 			Y: 15,
 		}
 		expectedPositionB := models.Coordinate{

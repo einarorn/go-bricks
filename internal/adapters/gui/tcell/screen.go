@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	borderWidth = 2
+	borderWidth = 1
 	offsetX     = 2
 	offsetY     = 2
 
@@ -42,7 +42,6 @@ func NewGUI() (*GraphicalUserInterface, error) {
 
 func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
 
-
 	gui.drawBackground(status.Height, status.Width)
 	gui.drawBorder(status.Height, status.Width)
 	gui.drawText(offsetX, status.Height+offsetY+borderWidth+2, status.Title)
@@ -55,9 +54,9 @@ func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
 	gui.screen.Sync()
 }
 
-func (gui GraphicalUserInterface) drawBall(ball models.Ball)  {
+func (gui GraphicalUserInterface) drawBall(ball models.Ball) {
 	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorDefault)
-	gui.screen.SetContent(ball.Position.X+offsetX+borderWidth, ball.Position.Y+offsetY+borderWidth, '⚪', nil, style)
+	gui.screen.SetContent(ball.Position.X+offsetX, ball.Position.Y+offsetY+borderWidth, '⚪', nil, style)
 
 	//gui.drawText(offsetX, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", ball.Position.X, ball.Position.Y))
 }
@@ -68,6 +67,9 @@ func (gui GraphicalUserInterface) drawPaddle(paddle models.Paddle) {
 	for i := paddle.PositionA.X + offsetX + borderWidth; i <= paddle.PositionB.X+offsetX+borderWidth; i++ {
 		gui.screen.SetContent(i, paddle.PositionA.Y+offsetY+borderWidth, '█', nil, style)
 	}
+
+	gui.drawText(offsetX, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", paddle.PositionA.X, paddle.PositionA.Y))
+	gui.drawText(offsetX+20, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", paddle.PositionB.X, paddle.PositionB.Y))
 }
 
 func (gui *GraphicalUserInterface) drawBlocks(blocks []models.Block) {
@@ -110,8 +112,8 @@ func (gui *GraphicalUserInterface) drawText(x int, y int, text string) {
 func (gui *GraphicalUserInterface) drawBackground(height, width int) {
 	borderStyle := tcell.StyleDefault.Foreground(tcell.ColorBlack).Background(tcell.ColorBlack)
 
-	for y := offsetY+1; y <=height+offsetY+1; y++ {
-		for x := offsetX+1; x <= width+1; x++ {
+	for y := offsetY + 1; y <= height+offsetY+1; y++ {
+		for x := offsetX + 1; x <= width+1; x++ {
 			gui.screen.SetContent(x, y, '█', nil, borderStyle)
 		}
 	}
@@ -120,20 +122,20 @@ func (gui *GraphicalUserInterface) drawBackground(height, width int) {
 func (gui *GraphicalUserInterface) drawBorder(height, width int) {
 	borderStyle := tcell.StyleDefault.Foreground(tcell.ColorReset).Background(tcell.ColorGray)
 
-	for x := offsetX; x <= width+offsetX; x++ {
+	for x := offsetX; x <= width+offsetX+borderWidth; x++ {
 		gui.screen.SetContent(x, offsetY, ' ', nil, borderStyle)
 		gui.screen.SetContent(x, height+offsetY+borderWidth, ' ', nil, borderStyle)
 	}
 
-	for y := offsetY; y < height+offsetY+borderWidth; y++ {
+	for y := offsetY; y <= height+offsetY+borderWidth; y++ {
 		gui.screen.SetContent(offsetX, y, ' ', nil, borderStyle)
-		gui.screen.SetContent(width+offsetX, y, ' ', nil, borderStyle)
+		gui.screen.SetContent(width+offsetX+borderWidth, y, ' ', nil, borderStyle)
 	}
 }
 
 func (gui GraphicalUserInterface) drawYAxis(height, width int) {
 	offset := offsetY + borderWidth
-	for i := 0; i < height+offset; i++ {
-		gui.drawText(width+offsetX+borderWidth, i, fmt.Sprintf("%v", i-offset))
+	for i := 0; i < height+offsetY+borderWidth; i++ {
+		gui.drawText(width+offsetX+borderWidth+2, i, fmt.Sprintf("%v", i-offset))
 	}
 }

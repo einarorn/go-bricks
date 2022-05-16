@@ -6,7 +6,6 @@ import (
 	"go-bricks/internal/domain/paddle"
 	"go-bricks/internal/models"
 	"go-bricks/internal/ports"
-	"time"
 )
 
 const title = "Go Bricks!"
@@ -24,25 +23,25 @@ func NewGame(height, width int) Game {
 }
 
 func (g Game) Start(gui ports.UserOutput) {
-	b := blocks.NewBlocks(8, 6, 8)
-	p := paddle.NewPaddle(g.Height, g.Width, 11)
+	b := blocks.NewBlocks(9, 6, 8)
+	p := paddle.NewPaddle(g.Height, g.Width, 10)
 	bl := ball.NewBall(g.Height, g.Width)
 
 	status := models.GameStatus{
 		Title:  title,
 		Height: g.Height,
 		Width:  g.Width,
-		Ball: bl.GetBall(),
+		Ball:   bl.GetBall(),
 		Blocks: b.GetBlocks(),
 		Paddle: p.GetPaddle(),
 	}
 	gui.Draw(status)
 
-	for i := 0; i<15; i++ {
+	/*for i := 0; i<15; i++ {
 		time.Sleep(time.Millisecond * 50)
 
 		bl.Move()
 		status.Ball = bl.GetBall()
 		gui.Draw(status)
-	}
+	}*/
 }
