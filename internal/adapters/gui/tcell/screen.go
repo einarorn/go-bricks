@@ -2,8 +2,9 @@ package tcell
 
 import (
 	"fmt"
-	"github.com/gdamore/tcell/v2"
 	"go-bricks/internal/models"
+
+	"github.com/gdamore/tcell/v2"
 )
 
 const (
@@ -48,7 +49,6 @@ func NewGUI() (*GraphicalUserInterface, error) {
 }
 
 func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
-
 	gui.drawBackground(status.Height, status.Width)
 	gui.drawBorder(status.Height, status.Width)
 	gui.drawText(offsetX, status.Height+offsetY+borderWidth+2, status.Title)
@@ -64,9 +64,9 @@ func (gui *GraphicalUserInterface) Draw(status models.GameStatus) {
 func (gui GraphicalUserInterface) drawBall(ball models.Ball) {
 	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorDefault)
 	gui.screen.SetContent(ball.PositionA.X+offsetX+borderWidth, ball.PositionA.Y+offsetY+borderWidth, '⚪', nil, style)
-	//gui.screen.SetContent(ball.PositionB.X+offsetX+borderWidth, ball.PositionB.Y+offsetY+borderWidth, '⚪', nil, style) //symbol takes two spaces
+	// gui.screen.SetContent(ball.PositionB.X+offsetX+borderWidth, ball.PositionB.Y+offsetY+borderWidth, '⚪', nil, style) //symbol takes two spaces
 
-	//gui.drawText(offsetX, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", ball.Position.X, ball.Position.Y))
+	// gui.drawText(offsetX, 28+offsetY+borderWidth+4, fmt.Sprintf("X:%v Y:%v", ball.Position.X, ball.Position.Y))
 }
 
 func (gui GraphicalUserInterface) drawPaddle(paddle models.Paddle) {
