@@ -23,7 +23,7 @@ func NewGame(height, width int) Game {
 }
 
 func (g Game) Start(gui ports.UserOutput) {
-	b := blocks.NewBlocks(9, 6, 8)
+	b := blocks.NewBlocks(9, 6, 10)
 	p := paddle.NewPaddle(g.Height, g.Width, 10)
 	bl := ball.NewBall(g.Height, g.Width)
 

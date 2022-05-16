@@ -2,22 +2,29 @@ package tcell
 
 import (
 	"fmt"
-	"go-bricks/internal/models"
-
 	"github.com/gdamore/tcell/v2"
+	"go-bricks/internal/models"
 )
 
 const (
 	borderWidth = 1
 	offsetX     = 2
 	offsetY     = 2
+)
 
-	blockColor1 = tcell.ColorRed
-	blockColor2 = tcell.ColorYellow
-	blockColor3 = tcell.ColorGreen
-	blockColor4 = tcell.ColorBlue
-	blockColor5 = tcell.ColorWhite
-	blockColor6 = tcell.ColorPurple
+var (
+	blockColor1Even = tcell.NewRGBColor(231, 72, 86)
+	blockColor1Odd  = tcell.NewRGBColor(201, 64, 78)
+	blockColor2Even = tcell.NewRGBColor(255, 212, 0)
+	blockColor2Odd  = tcell.NewRGBColor(221, 181, 0)
+	blockColor3Even = tcell.NewRGBColor(26, 198, 17)
+	blockColor3Odd  = tcell.NewRGBColor(23, 170, 15)
+	blockColor4Even = tcell.NewRGBColor(38, 106, 255)
+	blockColor4Odd  = tcell.NewRGBColor(32, 91, 219)
+	blockColor5Even = tcell.NewRGBColor(255, 106, 0)
+	blockColor5Odd  = tcell.NewRGBColor(211, 84, 0)
+	blockColor6Even = tcell.NewRGBColor(197, 35, 221)
+	blockColor6Odd  = tcell.NewRGBColor(169, 30, 191)
 )
 
 type GraphicalUserInterface struct {
@@ -73,32 +80,57 @@ func (gui GraphicalUserInterface) drawPaddle(paddle models.Paddle) {
 }
 
 func (gui *GraphicalUserInterface) drawBlocks(blocks []models.Block) {
-	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorBlack)
-
-	for _, block := range blocks {
-		gui.drawSingleBlock(block.PositionA.X+offsetX+borderWidth, block.PositionA.Y+offsetY+borderWidth, block.PositionB.X+offsetX+borderWidth, block.Color, style)
+	for index, block := range blocks {
+		gui.drawSingleBlock(block.PositionA.X+offsetX+borderWidth, block.PositionA.Y+offsetY+borderWidth, block.PositionB.X+offsetX+borderWidth, block.Color, index)
 	}
 }
 
-func (gui *GraphicalUserInterface) drawSingleBlock(x, y, width, color int, style tcell.Style) {
+func (gui *GraphicalUserInterface) drawSingleBlock(x, y, width, color, blockIndex int) {
+	style := tcell.StyleDefault.Foreground(tcell.ColorDefault).Background(tcell.ColorBlack)
+	oddEven := blockIndex % 2
+
 	switch color {
 	case 1:
-		style = style.Foreground(blockColor1)
+		if oddEven == 0 {
+			style = style.Foreground(blockColor1Even)
+		} else {
+			style = style.Foreground(blockColor1Odd)
+		}
 	case 2:
-		style = style.Foreground(blockColor2)
+		if oddEven == 0 {
+			style = style.Foreground(blockColor2Even)
+		} else {
+			style = style.Foreground(blockColor2Odd)
+		}
 	case 3:
-		style = style.Foreground(blockColor3)
+		if oddEven == 0 {
+			style = style.Foreground(blockColor3Even)
+		} else {
+			style = style.Foreground(blockColor3Odd)
+		}
 	case 4:
-		style = style.Foreground(blockColor4)
+		if oddEven == 0 {
+			style = style.Foreground(blockColor4Even)
+		} else {
+			style = style.Foreground(blockColor4Odd)
+		}
 	case 5:
-		style = style.Foreground(blockColor5)
+		if oddEven == 0 {
+			style = style.Foreground(blockColor5Even)
+		} else {
+			style = style.Foreground(blockColor5Odd)
+		}
 	case 6:
-		style = style.Foreground(blockColor6)
+		if oddEven == 0 {
+			style = style.Foreground(blockColor6Even)
+		} else {
+			style = style.Foreground(blockColor6Odd)
+		}
 	}
 
 	for i := x; i <= width; i++ {
 		gui.screen.SetContent(i, y, '█', nil, style)
-		gui.screen.SetContent(i, y+1, '▀', nil, style)
+		gui.screen.SetContent(i, y+1, '█', nil, style)
 	}
 }
 

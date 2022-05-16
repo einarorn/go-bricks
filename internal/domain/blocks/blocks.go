@@ -31,13 +31,13 @@ func (b *blocks) init() {
 			Y: y,
 		}
 		b.blocks[i].PositionB = models.Coordinate{
-			X: x + b.width,
+			X: x + b.width - 1,
 			Y: y + 1,
 		}
 		b.blocks[i].Color = color
 
-		x = x + b.width + 2
-		if b.rows*(b.width+2) <= x {
+		x = x + b.width
+		if b.rows*(b.width) <= x {
 			x = 0
 			y = y + 2
 			color++

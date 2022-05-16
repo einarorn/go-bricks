@@ -10,23 +10,22 @@ import (
 
 func TestBlocks_GetBlocks(t *testing.T) {
 	t.Run("Initializing 2x2 blocks matrix should have certain coordinates", func(t *testing.T) {
-		width := 4
-		b := blocks.NewBlocks(2, 2, width)
+		b := blocks.NewBlocks(2, 2, 4)
 
 		expectedIndex0PositionA := models.Coordinate{
 			X: 0,
 			Y: 0,
 		}
 		expectedIndex0PositionB := models.Coordinate{
-			X: width,
+			X: 3,
 			Y: 1,
 		}
 		expectedIndex1PositionA := models.Coordinate{
-			X: width + 2,
+			X: 4,
 			Y: 0,
 		}
 		expectedIndex1PositionB := models.Coordinate{
-			X: 2*width + 2,
+			X: 7,
 			Y: 1,
 		}
 		expectedIndex2PositionA := models.Coordinate{
@@ -34,15 +33,15 @@ func TestBlocks_GetBlocks(t *testing.T) {
 			Y: 2,
 		}
 		expectedIndex2PositionB := models.Coordinate{
-			X: width,
+			X: 3,
 			Y: 3,
 		}
 		expectedIndex3PositionA := models.Coordinate{
-			X: width + 2,
+			X: 4,
 			Y: 2,
 		}
 		expectedIndex3PositionB := models.Coordinate{
-			X: 2*width + 2,
+			X: 7,
 			Y: 3,
 		}
 
