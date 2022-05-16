@@ -11,7 +11,8 @@ type (
 	}
 
 	Ball struct {
-		Position Coordinate
+		PositionA Coordinate
+		PositionB Coordinate
 	}
 
 	Block struct {

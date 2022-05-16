@@ -20,9 +20,12 @@ func NewBall(height, width int) *ball {
 
 func (b *ball) inti() {
 	basePosX := b.width / 2
+	basePosY := b.height - 2
 
-	b.ball.Position.X = basePosX
-	b.ball.Position.Y = b.height - 2
+	b.ball.PositionA.X = basePosX-1
+	b.ball.PositionA.Y = basePosY
+	b.ball.PositionB.X = basePosX
+	b.ball.PositionB.Y = basePosY
 	b.direction = models.Coordinate{
 		X: 0,
 		Y: -1,
@@ -30,8 +33,10 @@ func (b *ball) inti() {
 }
 
 func (b *ball) Move() {
-	b.ball.Position.X += b.direction.X
-	b.ball.Position.Y += b.direction.Y
+	b.ball.PositionA.X += b.direction.X
+	b.ball.PositionA.Y += b.direction.Y
+	b.ball.PositionB.X += b.direction.X
+	b.ball.PositionB.Y += b.direction.Y
 }
 
 func (b *ball) GetBall() models.Ball {
